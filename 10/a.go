@@ -1,4 +1,4 @@
-package main
+package day10
 
 import (
 	"fmt"
@@ -8,18 +8,18 @@ import (
 	"aoc-2022/pkg/utils"
 )
 
-func runProgram(lines []string) (totalSignalStrenght int){
+func runProgram(lines []string) (totalSignalStrenght int) {
 	cycleNum := 1
 	regXVal := 1
 
 	adding := false
 	iLine := 0
-    signalStrenghts := make([]int, 0)
+	signalStrenghts := make([]int, 0)
 	for iLine < len(lines) {
 		if cycleNum == 20 || (cycleNum-20)%40 == 0 {
-            strength := cycleNum*regXVal
+			strength := cycleNum * regXVal
 			signalStrenghts = append(signalStrenghts, strength)
-            totalSignalStrenght += strength
+			totalSignalStrenght += strength
 			fmt.Println(" ", cycleNum, regXVal, signalStrenghts[len(signalStrenghts)-1])
 		}
 		line := lines[iLine]
@@ -48,12 +48,12 @@ func runProgram(lines []string) (totalSignalStrenght int){
 		cycleNum++
 	}
 
-    return
+	return
 }
 
-func main() {
+func SolveA() {
 	lines := utils.ReadLines("10/input/real.txt")
 
-    totalSignalStrenght := runProgram(lines)
-    fmt.Println(totalSignalStrenght)
+	totalSignalStrenght := runProgram(lines)
+	fmt.Println(totalSignalStrenght)
 }

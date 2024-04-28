@@ -1,4 +1,4 @@
-package main
+package day2
 
 import (
 	"fmt"
@@ -6,7 +6,6 @@ import (
 	"aoc-2022/pkg/utils"
 )
 
-// type shape string
 type shape int
 
 const (
@@ -93,7 +92,7 @@ func gameDataFromLines(lines []string) gameData {
 	return playsData
 }
 
-func main() {
+func SolveA() {
 	lines := utils.ReadLines("2/input/real.txt")
 	gameData := gameDataFromLines(lines)
 

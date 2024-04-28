@@ -1,14 +1,13 @@
-package main
+package day7
 
 import (
 	"fmt"
 
-	"aoc-2022/pkg/utils"
 	"aoc-2022/7/common"
+	"aoc-2022/pkg/utils"
 )
 
-
-func main() {
+func SolveA() {
 	cmdLines := utils.ReadLines("7/input/real.txt")
 
 	sepCmdLines := common.GetSeparatedCmdLines(cmdLines)
@@ -36,7 +35,7 @@ func main() {
 		sum += file.Size
 	}
 	fmt.Println(sum)
-    // for _, child := range tree.children {
-    //   fmt.Println("  ", child)
-    // }
+	// for _, child := range tree.children {
+	//   fmt.Println("  ", child)
+	// }
 }

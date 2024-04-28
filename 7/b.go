@@ -1,4 +1,4 @@
-package main
+package day7
 
 import (
 	"fmt"
@@ -13,7 +13,7 @@ const (
 	availSpaceNeeded = 30000000
 )
 
-func main() {
+func SolveB() {
 	cmdLines := utils.ReadLines("7/input/real.txt")
 
 	sepCmdLines := common.GetSeparatedCmdLines(cmdLines)
@@ -34,7 +34,7 @@ func main() {
 		return f.IsDir() && (totalDiskSpace-(tree.Size-f.Size) >= availSpaceNeeded)
 	})
 
-	fileSizes := utils.Map(files, func(f common.File) int {return int(f.Size)})
+	fileSizes := utils.Map(files, func(f common.File) int { return int(f.Size) })
 	sort.Ints(fileSizes)
 
 	fmt.Println(fileSizes[0])

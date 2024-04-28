@@ -1,4 +1,4 @@
-package main
+package day8
 
 import (
 	"fmt"
@@ -8,7 +8,6 @@ import (
 
 	"aoc-2022/8/common"
 )
-
 
 func getVisible(m [][]int) []types.Pair[int] {
 	visibleCoords := make([]types.Pair[int], 0)
@@ -68,7 +67,7 @@ func isVisible(i, j int, m [][]int) bool {
 
 }
 
-func main() {
+func SolveA() {
 	lines := utils.ReadLines("8/input/real.txt")
 
 	treeMatrix := common.LinesToMatrix(lines)

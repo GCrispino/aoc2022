@@ -1,4 +1,4 @@
-package main
+package day4
 
 import (
 	"fmt"
@@ -13,6 +13,10 @@ type assignment types.Pair[int]
 
 func (a assignment) isContainedInto(into assignment) bool {
 	return a.First >= into.First && a.Second <= into.Second
+}
+
+func (a assignment) overlapsWith(with assignment) bool {
+	return a.First <= with.First && a.Second >= with.First
 }
 
 func NewAssignment(assignmentStr string) assignment {
@@ -41,6 +45,17 @@ func (a assignmentPair) hasContained() bool {
 	return first.isContainedInto(second) || second.isContainedInto(first)
 }
 
+func (a assignmentPair) hasOverlap() bool {
+	if a.hasContained() {
+		return true
+	}
+
+	first := a.First
+	second := a.Second
+
+	return first.overlapsWith(second) || second.overlapsWith(first)
+}
+
 func getAssignmentPairs(lines []string) []assignmentPair {
 	assignmentPairs := make([]assignmentPair, len(lines))
 
@@ -55,7 +70,7 @@ func getAssignmentPairs(lines []string) []assignmentPair {
 	return assignmentPairs
 }
 
-func main() {
+func SolveA() {
 	lines := utils.ReadLines("4/input/real.txt")
 	assignmentPairs := getAssignmentPairs(lines)
 

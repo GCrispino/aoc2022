@@ -1,4 +1,4 @@
-package main
+package day3
 
 import (
 	"fmt"
@@ -24,7 +24,7 @@ func getRucksacksData(lines []string) []types.Pair[string] {
 	return rucksacksData
 }
 
-func main() {
+func SolveA() {
 	lines := utils.ReadLines("3/input/real.txt")
 	rucksacksData := getRucksacksData(lines)
 

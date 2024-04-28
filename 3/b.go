@@ -1,4 +1,4 @@
-package main
+package day3
 
 import (
 	"fmt"
@@ -7,7 +7,6 @@ import (
 
 	"aoc-2022/3/common"
 )
-
 
 func splitRucksackGroups(lines []string) [][]string {
 	lenLines := len(lines)
@@ -23,7 +22,7 @@ func splitRucksackGroups(lines []string) [][]string {
 	return groups
 }
 
-func main() {
+func SolveB() {
 	lines := utils.ReadLines("3/input/real.txt")
 
 	groups := splitRucksackGroups(lines)

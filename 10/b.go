@@ -1,4 +1,4 @@
-package main
+package day10
 
 import (
 	"fmt"
@@ -8,11 +8,11 @@ import (
 	"aoc-2022/pkg/utils"
 )
 
-type crtScreen []rune  
+type crtScreen []rune
 
 func (c crtScreen) String() (s string) {
 	for i, r := range c {
-		if i % 40 == 0 {
+		if i%40 == 0 {
 			s += "\n"
 		}
 		s += string(r)
@@ -21,18 +21,18 @@ func (c crtScreen) String() (s string) {
 	return s
 }
 
-func (c *crtScreen) draw(spritePos, cycleNum int){
+func (c *crtScreen) draw(spritePos, cycleNum int) {
 	cycleNum = cycleNum % 40
 	toDraw := '.'
 	fmt.Println("  draw", cycleNum, spritePos)
-	if cycleNum >= spritePos && cycleNum <= spritePos + 2 {
+	if cycleNum >= spritePos && cycleNum <= spritePos+2 {
 		toDraw = '#'
 	}
 
 	*c = append(*c, toDraw)
 }
 
-func runProgram(lines []string) crtScreen {
+func runProgram2(lines []string) crtScreen {
 	screen := make(crtScreen, 0)
 
 	cycleNum := 1
@@ -42,7 +42,7 @@ func runProgram(lines []string) crtScreen {
 	iLine := 0
 
 	for iLine < len(lines) {
-		fmt.Println("  line no ", iLine + 1)
+		fmt.Println("  line no ", iLine+1)
 		screen.draw(regXVal, cycleNum)
 		fmt.Println(screen)
 
@@ -76,12 +76,12 @@ func runProgram(lines []string) crtScreen {
 		cycleNum++
 	}
 
-    return screen
+	return screen
 }
 
-func main() {
-	lines := utils.ReadLines("10/input/test.txt")
+func SolveB() {
+	lines := utils.ReadLines("10/input/real.txt")
 
-    screen := runProgram(lines)
-    fmt.Println(screen)
+	screen := runProgram2(lines)
+	fmt.Println(screen)
 }

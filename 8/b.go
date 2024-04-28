@@ -1,10 +1,10 @@
-package main
+package day8
 
 import (
 	"fmt"
 
-	"aoc-2022/pkg/utils"
 	"aoc-2022/8/common"
+	"aoc-2022/pkg/utils"
 )
 
 func getScenicScores(m [][]int) [][]int {
@@ -41,7 +41,7 @@ func getScenicScore(i, j int, m [][]int) int {
 				blockingLeft = j - k
 				// fmt.Println("  blockingLeft = ", blockingLeft)
 			}
-			if k > j && blockingRight == nCols - j - 1 { // k > j
+			if k > j && blockingRight == nCols-j-1 { // k > j
 				blockingRight = k - j
 				// fmt.Println("  blockingRight = ", blockingRight)
 			}
@@ -61,7 +61,7 @@ func getScenicScore(i, j int, m [][]int) int {
 				blockingUp = i - k
 				// fmt.Println("  blockingUp = ", blockingUp)
 			}
-			if k > i && blockingDown == nRows - i - 1 { // k > i
+			if k > i && blockingDown == nRows-i-1 { // k > i
 				blockingDown = k - i
 				// fmt.Println("  blockingDown = ", blockingDown)
 			}
@@ -79,7 +79,7 @@ func getScenicScore(i, j int, m [][]int) int {
 
 }
 
-func main() {
+func SolveB() {
 	lines := utils.ReadLines("8/input/real.txt")
 
 	treeMatrix := common.LinesToMatrix(lines)

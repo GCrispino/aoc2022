@@ -17,7 +17,7 @@ type Item struct {
 	factors []*big.Int
 }
 
-func NewItem (x *big.Int) *Item {
+func NewItem(x *big.Int) *Item {
 	return &Item{factors: utils.PrimeFactors(x)}
 }
 
@@ -31,6 +31,7 @@ func (i *Item) Add(x *big.Int) {
 
 func (i *Item) Add2(j *Item) {
 	var kMatch int
+	_ = kMatch
 	for k, f := range i.factors {
 		if f != j.factors[k] {
 			kMatch = k
