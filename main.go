@@ -11,6 +11,7 @@ import (
 	day6 "aoc-2022/6"
 	day7 "aoc-2022/7"
 	day8 "aoc-2022/8"
+	day9 "aoc-2022/9"
 
 	"fmt"
 	"os"
@@ -81,6 +82,12 @@ func main() {
 			break
 		}
 		day8.SolveA()
+	case "9":
+		if strings.ToUpper(challenge) == "B" {
+			// day9.SolveB()
+			os.Exit(1)
+		}
+		day9.SolveA()
 	case "10":
 		if strings.ToUpper(challenge) == "B" {
 			day10.SolveB()
