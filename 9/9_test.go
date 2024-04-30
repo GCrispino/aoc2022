@@ -22,12 +22,16 @@ func TestUpdateTailPosition(t *testing.T) {
 			 */
 			name: "updates tail position correctly - 1",
 			curState: ropeState{
-				headPosition: position{row: 1, col: 3},
-				tailPosition: position{row: 1, col: 1},
+				positions: []position{
+					{row: 1, col: 3},
+					{row: 1, col: 1},
+				},
 			},
 			expectedState: ropeState{
-				headPosition: position{row: 1, col: 3},
-				tailPosition: position{row: 1, col: 2},
+				positions: []position{
+					{row: 1, col: 3},
+					{row: 1, col: 2},
+				},
 			},
 		},
 		{
@@ -40,12 +44,16 @@ func TestUpdateTailPosition(t *testing.T) {
 			 */
 			name: "updates tail position correctly - 2",
 			curState: ropeState{
-				headPosition: position{row: 1, col: 1},
-				tailPosition: position{row: 3, col: 1},
+				positions: []position{
+					{row: 1, col: 1},
+					{row: 3, col: 1},
+				},
 			},
 			expectedState: ropeState{
-				headPosition: position{row: 1, col: 1},
-				tailPosition: position{row: 2, col: 1},
+				positions: []position{
+					{row: 1, col: 1},
+					{row: 2, col: 1},
+				},
 			},
 		},
 		{
@@ -58,12 +66,16 @@ func TestUpdateTailPosition(t *testing.T) {
 			 */
 			name: "updates tail position correctly - 3",
 			curState: ropeState{
-				headPosition: position{row: 3, col: 2},
-				tailPosition: position{row: 1, col: 1},
+				positions: []position{
+					{row: 3, col: 2},
+					{row: 1, col: 1},
+				},
 			},
 			expectedState: ropeState{
-				headPosition: position{row: 3, col: 2},
-				tailPosition: position{row: 2, col: 2},
+				positions: []position{
+					{row: 3, col: 2},
+					{row: 2, col: 2},
+				},
 			},
 		},
 		{
@@ -76,12 +88,16 @@ func TestUpdateTailPosition(t *testing.T) {
 			 */
 			name: "updates tail position correctly - 4",
 			curState: ropeState{
-				headPosition: position{row: 2, col: 3},
-				tailPosition: position{row: 1, col: 1},
+				positions: []position{
+					{row: 2, col: 3},
+					{row: 1, col: 1},
+				},
 			},
 			expectedState: ropeState{
-				headPosition: position{row: 2, col: 3},
-				tailPosition: position{row: 2, col: 2},
+				positions: []position{
+					{row: 2, col: 3},
+					{row: 2, col: 2},
+				},
 			},
 		},
 		{
@@ -94,12 +110,16 @@ func TestUpdateTailPosition(t *testing.T) {
 			 */
 			name: "updates tail position correctly - 5",
 			curState: ropeState{
-				headPosition: position{row: 4, col: 2},
-				tailPosition: position{row: 3, col: 4},
+				positions: []position{
+					{row: 4, col: 2},
+					{row: 3, col: 4},
+				},
 			},
 			expectedState: ropeState{
-				headPosition: position{row: 4, col: 2},
-				tailPosition: position{row: 4, col: 3},
+				positions: []position{
+					{row: 4, col: 2},
+					{row: 4, col: 3},
+				},
 			},
 		},
 	}
@@ -108,12 +128,14 @@ func TestUpdateTailPosition(t *testing.T) {
 			state := tt.curState
 			expected := tt.expectedState
 			actual := ropeState{
-				headPosition: state.headPosition,
-				tailPosition: state.getNewTailPosition(),
+				positions: []position{
+					state.positions[0],
+					state.getNewTailPosition(0),
+				},
 			}
 
-			assert.Equal(t, expected.headPosition, actual.headPosition)
-			assert.Equal(t, expected.tailPosition, actual.tailPosition)
+			assert.Equal(t, expected.positions[0], actual.positions[0])
+			assert.Equal(t, expected.positions[1], actual.positions[1])
 		})
 	}
 
@@ -130,49 +152,167 @@ func TestTransition(t *testing.T) {
 		{
 			name: "moves and updates tail position correctly - 1",
 			curState: ropeState{
-				headPosition: position{row: 0, col: 0},
-				tailPosition: position{row: 0, col: 0},
+				positions: []position{
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+				},
 			},
 			move: move{dir: RightDirection, n: 4},
 			expectedState: ropeState{
-				headPosition: position{row: 0, col: 4},
-				tailPosition: position{row: 0, col: 3},
+				positions: []position{
+					{row: 0, col: 4},
+					{row: 0, col: 3},
+				},
 			},
 		},
 		{
 			name: "moves and updates tail position correctly - 2",
 			curState: ropeState{
-				headPosition: position{row: 0, col: 4},
-				tailPosition: position{row: 0, col: 3},
+				positions: []position{
+					{row: 0, col: 4},
+					{row: 0, col: 3},
+				},
 			},
 			move: move{dir: UpDirection, n: 4},
 			expectedState: ropeState{
-				headPosition: position{row: 4, col: 4},
-				tailPosition: position{row: 3, col: 4},
+				positions: []position{
+					{row: 4, col: 4},
+					{row: 3, col: 4},
+				},
 			},
 		},
 		{
 			name: "moves and updates tail position correctly - 3",
 			curState: ropeState{
-				headPosition: position{row: 4, col: 4},
-				tailPosition: position{row: 3, col: 4},
+				positions: []position{
+					{row: 4, col: 4},
+					{row: 3, col: 4},
+				},
 			},
 			move: move{dir: LeftDirection, n: 3},
 			expectedState: ropeState{
-				headPosition: position{row: 4, col: 1},
-				tailPosition: position{row: 4, col: 2},
+				positions: []position{
+					{row: 4, col: 1},
+					{row: 4, col: 2},
+				},
 			},
 		},
 		{
 			name: "moves and updates tail position correctly - 4",
 			curState: ropeState{
-				headPosition: position{row: 4, col: 1},
-				tailPosition: position{row: 4, col: 2},
+				positions: []position{
+					{row: 4, col: 1},
+					{row: 4, col: 2},
+				},
 			},
 			move: move{dir: DownDirection, n: 1},
 			expectedState: ropeState{
-				headPosition: position{row: 3, col: 1},
-				tailPosition: position{row: 4, col: 2},
+				positions: []position{
+					{row: 3, col: 1},
+					{row: 4, col: 2},
+				},
+			},
+		},
+		{
+			name:     "moves and updates tail position correctly with more than 2 knots - 1 - just one move",
+			curState: NewRopeState(10),
+			move:     move{dir: RightDirection, n: 1},
+			expectedState: ropeState{
+				positions: []position{
+					{row: 0, col: 1},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+				},
+			},
+		},
+		{
+			name:     "moves and updates tail position correctly with more than 2 knots - 1 - four moves",
+			curState: NewRopeState(10),
+			move:     move{dir: RightDirection, n: 4},
+			expectedState: ropeState{
+				positions: []position{
+					{row: 0, col: 4},
+					{row: 0, col: 3},
+					{row: 0, col: 2},
+					{row: 0, col: 1},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+				},
+			},
+		},
+		{
+			name: "moves and updates tail position correctly with more than 2 knots - 2",
+			move: move{dir: UpDirection, n: 4},
+			curState: ropeState{
+				positions: []position{
+					{row: 0, col: 4},
+					{row: 0, col: 3},
+					{row: 0, col: 2},
+					{row: 0, col: 1},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+				},
+			},
+			expectedState: ropeState{
+				positions: []position{
+					{row: 4, col: 4},
+					{row: 3, col: 4},
+					{row: 2, col: 4},
+					{row: 2, col: 3},
+					{row: 2, col: 2},
+					{row: 1, col: 1},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+				},
+			},
+		},
+		{
+			name: "moves and updates tail position correctly with more than 2 knots - 3",
+			move: move{dir: LeftDirection, n: 3},
+			curState: ropeState{
+				positions: []position{
+					{row: 4, col: 4},
+					{row: 3, col: 4},
+					{row: 2, col: 4},
+					{row: 2, col: 3},
+					{row: 2, col: 2},
+					{row: 1, col: 1},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+				},
+			},
+			expectedState: ropeState{
+				positions: []position{
+					{row: 4, col: 1},
+					{row: 4, col: 2},
+					{row: 3, col: 3},
+					{row: 2, col: 3},
+					{row: 2, col: 2},
+					{row: 1, col: 1},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+					{row: 0, col: 0},
+				},
 			},
 		},
 	}
@@ -185,8 +325,9 @@ func TestTransition(t *testing.T) {
 			state.Transition(tt.move)
 			actual := state
 
-			assert.Equal(t, expected.headPosition, actual.headPosition)
-			assert.Equal(t, expected.tailPosition, actual.tailPosition)
+			for i, actualPos := range actual.positions {
+				assert.Equal(t, expected.positions[i], actualPos, "i = %d", i)
+			}
 		})
 	}
 
@@ -205,18 +346,20 @@ func TestSimulate(t *testing.T) {
 	}
 
 	expectedState := ropeState{
-		headPosition: position{row: 2, col: 2},
-		tailPosition: position{row: 2, col: 1},
+		positions: []position{
+			{row: 2, col: 2},
+			{row: 2, col: 1},
+		},
 	}
-	newState := simulate(moves)
+	newState := simulate(moves, 2)
 	actualPosTracker := newState.visitedTracker
 
 	// fmt.Printf("tracker! %v\n", actualPosTracker)
 	expectedPosTrackerCount := 13
 	assert.Equal(t, expectedPosTrackerCount, actualPosTracker.getCount())
 
-	assert.Equal(t, expectedState.headPosition, newState.headPosition)
-	assert.Equal(t, expectedState.tailPosition, newState.tailPosition)
+	assert.Equal(t, expectedState.positions[0], newState.positions[0])
+	assert.Equal(t, expectedState.positions[1], newState.positions[1])
 
 	expectedPosTrackerStr := `..##..
 ...##.
@@ -225,5 +368,44 @@ func TestSimulate(t *testing.T) {
 s###..`
 
 	assert.Equal(t, expectedPosTrackerStr, actualPosTracker.String())
+
+}
+
+func TestSimulateMultipleKnots(t *testing.T) {
+	// t.Skip()
+	moves := []move{
+		{dir: RightDirection, n: 5},
+		{dir: UpDirection, n: 8},
+		{dir: LeftDirection, n: 8},
+		{dir: DownDirection, n: 3},
+		{dir: RightDirection, n: 17},
+		{dir: DownDirection, n: 10},
+		{dir: LeftDirection, n: 25},
+		{dir: UpDirection, n: 20},
+	}
+
+	expectedState := ropeState{
+		positions: []position{
+			{row: 15, col: -11},
+			{row: 14, col: -11},
+			{row: 13, col: -11},
+			{row: 12, col: -11},
+			{row: 11, col: -11},
+			{row: 10, col: -11},
+			{row: 9, col: -11},
+			{row: 8, col: -11},
+			{row: 7, col: -11},
+			{row: 6, col: -11},
+		},
+	}
+	newState := simulate(moves, 10)
+	actualPosTracker := newState.visitedTracker
+
+	expectedPosTrackerCount := 36
+	assert.Equal(t, expectedPosTrackerCount, actualPosTracker.getCount())
+
+	for i, actualPos := range newState.positions {
+		assert.Equal(t, expectedState.positions[i], actualPos, "i = %d", i)
+	}
 
 }

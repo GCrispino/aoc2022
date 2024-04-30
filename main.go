@@ -84,8 +84,8 @@ func main() {
 		day8.SolveA()
 	case "9":
 		if strings.ToUpper(challenge) == "B" {
-			// day9.SolveB()
-			os.Exit(1)
+			day9.SolveB()
+			break
 		}
 		day9.SolveA()
 	case "10":

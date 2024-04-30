@@ -11,19 +11,6 @@ import (
 	"aoc-2022/pkg/utils"
 )
 
-/*
- * TODO
- *
- * Write transition function
- * - receives direction (R, L, U, D) and number
- * -  computes new position of head
- * -  computes new position of tail
- *	- this can probably be its own function
- * Write simulation function
- * - goes through each command and computes the transition for each
- * - needs to keep track of the tail position for computing the final answer
- */
-
 type direction string
 
 const (
@@ -42,30 +29,32 @@ type position struct {
 	row, col int
 }
 
-func (p *position) move(d direction) {
+func (p position) move(d direction) position {
+	newPos := p
 	switch d {
 	case RightDirection:
-		p.col += 1
+		newPos.col += 1
 	case LeftDirection:
-		p.col -= 1
+		newPos.col -= 1
 	case UpDirection:
-		p.row += 1
+		newPos.row += 1
 	case DownDirection:
-		p.row -= 1
+		newPos.row -= 1
 	default:
 		panic("invalid direction")
 	}
+
+	return newPos
 }
 
 type ropeState struct {
-	headPosition, tailPosition position
-	visitedTracker             posTracker
+	positions      []position
+	visitedTracker posTracker
 }
 
-func NewRopeState(headPos, tailPos position) ropeState {
+func NewRopeState(nKnots int) ropeState {
 	return ropeState{
-		headPosition:   headPos,
-		tailPosition:   tailPos,
+		positions:      make([]position, nKnots),
 		visitedTracker: make(posTracker),
 	}
 }
@@ -73,26 +62,31 @@ func NewRopeState(headPos, tailPos position) ropeState {
 func (r *ropeState) Transition(m move) {
 	// fmt.Printf("initial position: %v, move: %v\n", r, m)
 	for i := 0; i < m.n; i++ {
+		headPosition := r.positions[0]
 		// move head's position
-		r.headPosition.move(m.dir)
+		r.positions[0] = headPosition.move(m.dir)
+		for j := 0; j < len(r.positions)-1; j++ {
 
-		// update tail's position
-		r.tailPosition = r.getNewTailPosition()
-		// fmt.Printf("position at %d: %v\n", i, r)
+			// update tail's position
+			r.positions[j+1] = r.getNewTailPosition(j)
+			// fmt.Printf("position at %d: %v\n", i, r)
 
-		tailPos := r.tailPosition
-		_, ok := r.visitedTracker[tailPos]
-		if !ok {
-			r.visitedTracker[tailPos] = struct{}{}
+			if j == len(r.positions)-2 {
+				tailPos := r.positions[j+1]
+				_, ok := r.visitedTracker[tailPos]
+				if !ok {
+					r.visitedTracker[tailPos] = struct{}{}
+				}
+			}
 		}
 	}
 	// fmt.Println()
 }
 
-func (r *ropeState) getNewTailPosition() position {
+func (r *ropeState) getNewTailPosition(i int) position {
 	// fmt.Println("rowState: ", r)
-	headPos := r.headPosition
-	curTailPos := r.tailPosition
+	headPos := r.positions[i]
+	curTailPos := r.positions[i+1]
 
 	newTailPos := curTailPos
 
@@ -171,8 +165,8 @@ func (t posTracker) getCount() (count int) {
 	return count
 }
 
-func simulate(moves []move) ropeState {
-	state := NewRopeState(position{}, position{})
+func simulate(moves []move, nKnots int) ropeState {
+	state := NewRopeState(nKnots)
 
 	for _, m := range moves {
 		state.Transition(m)
@@ -214,7 +208,7 @@ func parseMovesFromFile(path string) []move {
 func SolveA() {
 	moves := parseMovesFromFile("9/input/a.txt")
 
-	finalState := simulate(moves)
+	finalState := simulate(moves, 2)
 
 	fmt.Println(finalState.visitedTracker.String())
 
