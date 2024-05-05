@@ -5,8 +5,9 @@ import (
 	"strconv"
 	"strings"
 
-	big "github.com/ncw/gmp"
+	// big "github.com/ncw/gmp"
 	"golang.org/x/exp/slices"
+	"math/big"
 
 	"aoc-2022/pkg/utils"
 )

@@ -6,7 +6,8 @@ import (
 	"testing"
 	"time"
 
-	big "github.com/ncw/gmp"
+	"math/big"
+	// big "github.com/ncw/gmp"
 	"github.com/stretchr/testify/assert"
 
 	"aoc-2022/pkg/utils"

@@ -8,7 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	big "github.com/ncw/gmp"
+	"math/big"
+	// big "github.com/ncw/gmp"
 )
 
 func ReadLines(filePath string) []string {
@@ -149,4 +150,8 @@ func PrimeFactors(n *big.Int) (pfs []*big.Int) {
 	}
 
 	return
+}
+
+func AsPointer[T any](v T) *T {
+	return &v
 }

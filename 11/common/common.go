@@ -2,11 +2,11 @@ package common
 
 import (
 	"fmt"
-	// "math/big"
+	"math/big"
 	"strconv"
 	"strings"
 
-	big "github.com/ncw/gmp"
+	// big "github.com/ncw/gmp"
 
 	"aoc-2022/pkg/utils"
 )
@@ -26,7 +26,7 @@ func NewMonkeyFromLines(lines []string, i int) Monkey {
 	)
 
 	// items, err := utils.MapWithError(itemsStr, strconv.Atoi)
-	items, err := utils.MapWithError(itemsStr, func(s string) (*big.Int, error){
+	items, err := utils.MapWithError(itemsStr, func(s string) (*big.Int, error) {
 		x, err := strconv.Atoi(s)
 		if err != nil {
 			return nil, err
@@ -125,7 +125,7 @@ func ParseInput(lines []string) []*Monkey {
 func InvestigateMonkeys(monkeysData []*Monkey, worryLevelDivisor, nRounds int) []*Monkey {
 	rateToPrint := 1
 	for i := 0; i < nRounds; i++ {
-		if i % rateToPrint == 0{
+		if i%rateToPrint == 0 {
 			fmt.Println("round", i, monkeysData[0].items, monkeysData[1].items)
 		}
 		for _, m := range monkeysData {
