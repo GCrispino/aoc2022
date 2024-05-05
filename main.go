@@ -5,6 +5,7 @@ import (
 	day10 "aoc-2022/10"
 	day11 "aoc-2022/11"
 	day12 "aoc-2022/12"
+	day13 "aoc-2022/13"
 	day2 "aoc-2022/2"
 	day3 "aoc-2022/3"
 	day4 "aoc-2022/4"
@@ -108,6 +109,12 @@ func main() {
 			break
 		}
 		day12.SolveA()
+	case "13":
+		if strings.ToUpper(challenge) == "B" {
+			day13.SolveB()
+			break
+		}
+		day13.SolveA()
 	default:
 		fmt.Printf("day %s does not have a solution implementation!", day)
 		os.Exit(1)
